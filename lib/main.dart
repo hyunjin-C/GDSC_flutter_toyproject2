@@ -24,11 +24,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Bookriendly',
         debugShowCheckedModeBanner: false,
-        initialRoute: '/first',
-        routes: {
-          '/first': (context) => MyPage(),
-          '/second': (context) => MyCalendar(),
-        },
+        // initialRoute: '/start',
+        // routes: {
+        //   '/start': (context) => Login(),
+        //   // '/first': (context) => MyPage(),
+        //   '/second': (context) => MyCalendar(),
+        // },
         theme: ThemeData(primarySwatch: Colors.blueGrey),
         home: MultiProvider(
           // ChangeNotifierProvider 통해 변화에 대해 구독

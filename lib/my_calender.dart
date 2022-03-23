@@ -6,11 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //flutter 코어 엔진 초기화
-  await Firebase.initializeApp(); //파이어베이스 초기화
-  runApp(MyCalendar());
-}
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized(); //flutter 코어 엔진 초기화
+//   await Firebase.initializeApp(); //파이어베이스 초기화
+//   // runApp(MyCalendar());
+// }
 
 class MyCalendar extends StatefulWidget {
   //const MyCalendar({ Key? key }) : super(key: key);
@@ -76,147 +76,175 @@ class _MyCalendarState extends State<MyCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Bookriendly',
-          style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.5,
-            fontSize: 25.0,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 165, 157, 192),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => MyPage()));
-            },
-            icon: const Icon(Icons.arrow_back)), // 홈으로 가기 버튼
-      ),
-      body: Center(
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   title: Text(
+      //     'Bookriendly',
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //       letterSpacing: 1.5,
+      //       fontSize: 25.0,
+      //     ),
+      //   ),
+      //   centerTitle: true,
+      //   backgroundColor: Color.fromARGB(255, 165, 157, 192),
+      //   leading: IconButton(
+      //       onPressed: () {
+      //         // Navigator.pushReplacement(
+      //         //     context,
+      //         //     MaterialPageRoute(
+      //         //         builder: (BuildContext context) => MyPage()));
+      //         Navigator.of(context).pop();
+      //       },
+      //       icon: const Icon(Icons.arrow_back)), // 홈으로 가기 버튼
+      // ),
+      body: Container(
         child: Column(
-          children: <Widget>[
-            Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  width: 200,
-                  // height: 50,
-                  child: Text(
-                    '나의 대출 목록',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  // 달력
-                  child: TableCalendar<Event>(
-                    calendarFormat: _calendarFormat,
-                    onFormatChanged: (format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    },
-                    focusedDay: DateTime.now(),
-                    firstDay: DateTime(2022, 1, 1),
-                    lastDay: DateTime(2022, 12, 31),
-                    //locale: 'ko-KR',
+          children: [
+            Center(
+              child: Column(
+                children: <Widget>[
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (BuildContext context) => MyPage()));
+                                Navigator.of(context).pop();
+                              },
+                              icon: const Icon(Icons.arrow_back)),
+                          Container(
+                            margin: EdgeInsets.all(15),
+                            width: 250,
+                            // height: 50,
 
-                    onPageChanged: (focusedDay) {
-                      _focusedDay = focusedDay;
-                    },
-
-                    // 캘린더바 스타일
-                    daysOfWeekHeight: 30,
-                    headerStyle: HeaderStyle(
-                      titleCentered: true,
-                      formatButtonVisible: false,
-                    ),
-
-                    // 캘린더 스타일
-                    calendarStyle: CalendarStyle(
-                      outsideDaysVisible: false,
-                      todayDecoration: BoxDecoration(
-                        color: Color.fromARGB(255, 179, 174, 196),
-                        shape: BoxShape.circle,
+                            child: Text(
+                              '나의 대출 목록',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
 
-                    // 이벤트
-                    onDaySelected: _onDaySelected,
-                    eventLoader: (day) {
-                      return _getEventsForDay(day);
-                    },
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        // 달력
+                        child: TableCalendar<Event>(
+                          calendarFormat: _calendarFormat,
+                          onFormatChanged: (format) {
+                            setState(() {
+                              _calendarFormat = format;
+                            });
+                          },
+                          focusedDay: DateTime.now(),
+                          firstDay: DateTime(2022, 1, 1),
+                          lastDay: DateTime(2022, 12, 31),
+                          //locale: 'ko-KR',
+
+                          onPageChanged: (focusedDay) {
+                            _focusedDay = focusedDay;
+                          },
+
+                          // 캘린더바 스타일
+                          daysOfWeekHeight: 30,
+                          headerStyle: HeaderStyle(
+                            titleCentered: true,
+                            formatButtonVisible: false,
+                          ),
+
+                          // 캘린더 스타일
+                          calendarStyle: CalendarStyle(
+                            outsideDaysVisible: false,
+                            todayDecoration: BoxDecoration(
+                              color: Color.fromARGB(255, 179, 174, 196),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+
+                          // 이벤트
+                          onDaySelected: _onDaySelected,
+                          eventLoader: (day) {
+                            return _getEventsForDay(day);
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      // 책 제목과 반납일
+                      Container(
+                        width: 350,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: Color.fromARGB(255, 218, 218, 218),
+                              width: 2),
+                        ),
+                        // 리스트
+                        child: Container(
+                            padding: EdgeInsets.all(10),
+                            // 대출한 책 목록 가져오기
+                            child: StreamBuilder<QuerySnapshot>(
+                                stream: FirebaseFirestore.instance
+                                    .collection('borrow_list')
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return ListView.builder(
+                                      itemCount: snapshot.data!.docs.length,
+                                      itemBuilder: (context, index) {
+                                        final DocumentSnapshot
+                                            documentSnapshot =
+                                            snapshot.data!.docs[index];
+                                        print(snapshot.data!.docs.length);
+                                        String borrowDate =
+                                            documentSnapshot['borrowDate'];
+                                        String returnDate =
+                                            documentSnapshot['returnDate'];
+                                        return Card(
+                                            color: Color.fromARGB(
+                                                255, 225, 233, 232),
+                                            margin: EdgeInsets.all(10),
+                                            child: ListTile(
+                                              title: Text(
+                                                documentSnapshot['bookname'],
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              subtitle: Text('대출일: ' +
+                                                  documentSnapshot[
+                                                      'borrowDate'] +
+                                                  "\t\t\t반납일: " +
+                                                  documentSnapshot[
+                                                      'returnDate']),
+                                            ));
+                                      },
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                })),
+                      )
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                // 책 제목과 반납일
-                Container(
-                  width: 350,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: Color.fromARGB(255, 218, 218, 218), width: 2),
-                  ),
-                  // 리스트
-                  child: Container(
-                      padding: EdgeInsets.all(10),
-                      // 대출한 책 목록 가져오기
-                      child: StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection('borrow_list')
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return ListView.builder(
-                                itemCount: snapshot.data!.docs.length,
-                                itemBuilder: (context, index) {
-                                  final DocumentSnapshot documentSnapshot =
-                                      snapshot.data!.docs[index];
-                                  print(snapshot.data!.docs.length);
-                                  String borrowDate =
-                                      documentSnapshot['borrowDate'];
-                                  String returnDate =
-                                      documentSnapshot['returnDate'];
-                                  return Card(
-                                      color: Color.fromARGB(255, 225, 233, 232),
-                                      margin: EdgeInsets.all(10),
-                                      child: ListTile(
-                                        title: Text(
-                                          documentSnapshot['bookname'],
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        subtitle: Text('대출일: ' +
-                                            documentSnapshot['borrowDate'] +
-                                            "\t\t\t반납일: " +
-                                            documentSnapshot['returnDate']),
-                                      ));
-                                },
-                              );
-                            }
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          })),
-                )
-              ],
+                ],
+              ),
             ),
           ],
         ),
