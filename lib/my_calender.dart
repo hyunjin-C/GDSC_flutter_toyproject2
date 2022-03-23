@@ -103,9 +103,9 @@ class _MyCalendarState extends State<MyCalendar> {
             Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 50),
+                  margin: EdgeInsets.only(top: 20),
                   width: 200,
-                  height: 50,
+                  // height: 50,
                   child: Text(
                     '나의 대출 목록',
                     textAlign: TextAlign.center,
