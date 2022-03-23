@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_toy2/my_calender.dart';
+import 'package:flutter_toy2/mypage.dart';
 import 'package:flutter_toy2/provider/ev_provider.dart';
 // import 'package:flutter_toy2/ui/map.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Bookriendly',
         debugShowCheckedModeBanner: false,
+        initialRoute: '/first',
         routes: {
+          '/first': (context) => MyPage(),
           '/second': (context) => MyCalendar(),
         },
         theme: ThemeData(primarySwatch: Colors.blueGrey),
